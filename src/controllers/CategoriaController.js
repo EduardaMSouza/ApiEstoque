@@ -109,18 +109,18 @@ class CategoriaController {
       next(erro);
     }
   }
-  static async hardDeleteDeCategorias(req, res, next) {
-    try{
-      const { id } = req.params;
-      const resultado = await categoriaService.hardDeleteRegistro(id);
-      if(!resultado){
-        new ErroRequisicao('Id não encontrado').enviarResposta(res);
-      }
-      res.status(204).send();
-    }catch(erro){
-      next(erro);
-    }
-  }
+  // static async hardDeleteDeCategorias(req, res, next) {
+  //   try{
+  //     const { id } = req.params;
+  //     const resultado = await categoriaService.hardDeleteRegistro(id);
+  //     if(!resultado){
+  //       new ErroRequisicao('Id não encontrado').enviarResposta(res);
+  //     }
+  //     res.status(204).send();
+  //   }catch(erro){
+  //     next(erro);
+  //   }
+  // }
 }
 
 module.exports = CategoriaController;

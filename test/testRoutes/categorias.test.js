@@ -11,7 +11,7 @@ describe('Teste de todos as funcionalidades CRUD da tabela categorias', () => {
 describe('Deve cadastrar uma nova Categoria', () => {
   test('POST - /categorias - Deve retornar 200 e o objeto criado no BD', async () => {
     const body = {
-      nome: 'TestePostCategoriasumDois',
+      nome: 'TestePostCategoriasumDoisTresQuatroCincoSeisNove',
       descricao: 'teste numero Um'
     }
     const responseCategoria = await request(app).post('/categorias').send(body);
@@ -29,7 +29,7 @@ describe('Deve cadastrar uma nova Categoria', () => {
 })
 
 describe.each([
-  ['nome', { nome: 'NomePutCategoriaAtualizacaoDoi' }],
+  ['nome', { nome: 'NomePutCategoriaAtualizacaoDoisTresQuatroCincSeteOito' }],
   ['descrição', { descricao: 'teste de atualizacao' }],
 ])('Teste de atualização de campos', (campo, atualizacao) => {
   test(`PUT - /categorias/:id - Deve atualizar ${campo}`, async () => {
@@ -74,12 +74,12 @@ describe('Deve retornar a Categoria recuperada', () => {
   })
 })
 
-  describe('Deve deletar uma Categoria', () => {
-    test('DELETE - /categorias/:id - Deve retornar 204', async () => {
-          const responseCategoria = await request(app).delete(`/categorias/${novaCategoriaId}/harddelete`);
-          expect(responseCategoria.statusCode).toBe(HTTP_STATUS_NO_CONTENT)
-        })
+describe('Deve deletar uma Categoria', () => {
+  test('DELETE - /categorias/:id - Deve retornar 204', async () => {
+    const responseCategoria = await request(app).delete(`/categorias/${novaCategoriaId}`);
+    expect(responseCategoria.statusCode).toBe(HTTP_STATUS_NO_CONTENT)
   })
+})
 
 })
 

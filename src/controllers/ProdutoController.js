@@ -103,18 +103,18 @@ class ProdutoController {
       next(erro);
     }
   }
-  static async hardDeleteDeProdutos(req, res, next) {
-    try{
-      const { id } = req.params;
-      const resultado = await produtoService.hardDeleteRegistro(id);
-      if(!resultado){
-        new ErroRequisicao('Id não encontrado').enviarResposta(res);
-      }
-      res.status(204).send();
-    }catch(erro){
-      next(erro);
-    }
-  }
+  // static async hardDeleteDeProdutos(req, res, next) {
+  //   try{
+  //     const { id } = req.params;
+  //     const resultado = await produtoService.hardDeleteRegistro(id);
+  //     if(!resultado){
+  //       new ErroRequisicao('Id não encontrado').enviarResposta(res);
+  //     }
+  //     res.status(204).send();
+  //   }catch(erro){
+  //     next(erro);
+  //   }
+  // }
 }
 
 // async function  pegaProdutosQuery() {

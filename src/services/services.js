@@ -31,9 +31,10 @@ class Services{
     return database[this.nomeModelo]
       .update(dadosAtualizados, {where: {id: id}});
   }
-  async hardDeleteRegistro(id) {
-    return await database[this.nomeModelo].destroy({where: {id: id}}, {force: true});
-  }
+  // async hardDeleteRegistro(id) {
+  //   await database[this.nomeModelo].destroy({ where: { nome: "NomePutProduto" }, force: true });
+  //   return 1;
+  // }
 }
 
 

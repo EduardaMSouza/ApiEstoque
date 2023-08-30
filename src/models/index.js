@@ -40,4 +40,6 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 console.log('conectei');
+
+
 module.exports = db ;

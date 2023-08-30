@@ -14,7 +14,6 @@ router
   .post('/produtos', ProdutoController.novoProduto)
   .post('/produtos/:id', ProdutoController.recuperarProduto)
   .put('/produtos/:id', ProdutoController.atualizaProduto)
-  .delete('/produtos/:id/harddelete', ProdutoController.hardDeleteDeProdutos)
   .delete('/produtos/:id', ProdutoController.exlcuiProduto)
   
 

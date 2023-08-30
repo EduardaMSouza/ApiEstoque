@@ -11,7 +11,6 @@ router
   .post('/categorias', CategoriaController.novaCategoria)
   .post('/categorias/:id', CategoriaController.recuperarCategoria)
   .put('/categorias/:id', CategoriaController.atualizaCategoria)
-  .delete('/categorias/:id/harddelete', CategoriaController.hardDeleteDeCategorias)
   .delete('/categorias/:id', CategoriaController.exlcuiCategoria)
 
 
