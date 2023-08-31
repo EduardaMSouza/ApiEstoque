@@ -5,7 +5,8 @@ const HTTP_STATUS_NAO_ENCONTRADO = 404;
 const HTTP_STATUS_BAD_REQUEST = 400;
 const idNaoExistente = 3000;
 
-describe('Testes de validações', () => {
+describe('Testes de validações na tabela "Categorias"', () => {
+
   describe.each([
     ['minimo de letras','lx'],
     ['maximo de letras', 'a'.repeat(71)],
@@ -16,7 +17,7 @@ describe('Testes de validações', () => {
     ['undefined', undefined],
     ['apenas espacos', '   '],
     ['caracteres especiais', 'jsakh#']
-  ])('Validacoes de nome erradas', (validacaoFeita, validacaoForcada) => {
+  ])('Validacoes de nomes errados', (validacaoFeita, validacaoForcada) => {
     const body = {
       nome: validacaoForcada,
       descricao: 'Descricao de teste'

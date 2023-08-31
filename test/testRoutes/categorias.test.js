@@ -11,7 +11,7 @@ describe('Teste de todos as funcionalidades CRUD da tabela categorias', () => {
 describe('Deve cadastrar uma nova Categoria', () => {
   test('POST - /categorias - Deve retornar 200 e o objeto criado no BD', async () => {
     const body = {
-      nome: 'TestePostCategoriasumDoisTresQuatroCincoSeisNove',
+      nome: 'TestePostCategoriasumDoisTresQuatroCincoSeisNoveDezGUKO',
       descricao: 'teste numero Um'
     }
     const responseCategoria = await request(app).post('/categorias').send(body);
@@ -29,7 +29,7 @@ describe('Deve cadastrar uma nova Categoria', () => {
 })
 
 describe.each([
-  ['nome', { nome: 'NomePutCategoriaAtualizacaoDoisTresQuatroCincSeteOito' }],
+  ['nome', { nome: 'NomePutCategoriaAtualizacaoDoisTresQuatroCincSeteOitoCincoHuMe' }],
   ['descrição', { descricao: 'teste de atualizacao' }],
 ])('Teste de atualização de campos', (campo, atualizacao) => {
   test(`PUT - /categorias/:id - Deve atualizar ${campo}`, async () => {
