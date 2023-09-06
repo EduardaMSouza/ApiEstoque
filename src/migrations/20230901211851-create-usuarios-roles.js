@@ -2,26 +2,30 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('HistoricoPrecos', {
+    await queryInterface.createTable('UsuariosRoles', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      produto_id: {
+      usuario_id: {
         type: Sequelize.UUID,
-        allowNull: false,
-        references: { model: 'Produtos', Key: 'id'}
+        references: {
+          model: 'Usuarios',
+          key: 'id'
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       },
-      preco_antigo: {
-        type: Sequelize.FLOAT,
-        allowNull: false
-      },
-      data_mudanca: {
-        type: Sequelize.DATEONLY,
-        defaultValue: new Date(),
-        allowNull: false
+      role_id: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'Roles',
+          key: 'id'
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       },
       createdAt: {
         allowNull: false,
@@ -34,6 +38,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('HistoricoPrecos');
+    await queryInterface.dropTable('UsuariosRoles');
   }
 };

@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       HistoricoPrecos.belongsTo(models.Produtos, {
-        foreignKey: 'produto_id'
+        foreignKey: 'produto_id',
+        onUpdate: 'CASCADE'
       })
     }
   }

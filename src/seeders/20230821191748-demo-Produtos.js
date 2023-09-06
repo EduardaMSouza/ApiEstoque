@@ -1,9 +1,10 @@
 'use strict';
-
+const { v4: uuidv4 } = require('uuid');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Produtos', [{
+      id: uuidv4(),
       preco: 10.99,
       categoria_nome: 'Eletrônicos',
       nome: 'Celular',
@@ -12,6 +13,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id: uuidv4(),
       preco: 25.50,
       categoria_nome: 'Roupas',
       nome: 'Camiseta',
@@ -20,6 +22,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id: uuidv4(),
       preco: 1500.00,
       categoria_nome: 'Eletrônicos',
       nome: 'Notebook',
@@ -28,6 +31,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id: uuidv4(),
       preco: 5.99,
       categoria_nome: 'Alimentos',
       nome: 'Chocolate',
@@ -36,6 +40,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id: uuidv4(),
       preco: 50.00,
       categoria_nome: 'Roupas',
       nome: 'Calça Jeans',

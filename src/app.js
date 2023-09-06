@@ -12,9 +12,13 @@ app.use(manipuladorDeErros);
 
 app.use(manipulador404);
 
-// app.listen(port, () => {
-//     console.log(`O servidor esta rodando em http://localhost:${port}/`);
-//   })
+app.use('/', () => {
+  console.log('Hello World');
+})
+
+app.listen(port, () => {
+    console.log(`O servidor esta rodando em http://localhost:${port}/`);
+  })
 
 
 module.exports = app;

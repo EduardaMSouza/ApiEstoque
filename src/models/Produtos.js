@@ -11,13 +11,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Produtos.belongsTo(models.Categorias, {
-        foreignKey: 'categoria_nome'
+        foreignKey: 'categoria_nome',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       })
       Produtos.hasMany(models.HistoricoPrecos, {
-        foreignKey: 'produto_id'
+        foreignKey: 'produto_id',
+        onUpdate: 'CASCADE'
       })
       Produtos.hasMany(models.HistoricoQuantidades, {
-        foreignKey: 'produto_id'
+        foreignKey: 'produto_id',
+        onUpdate: 'CASCADE'
+      })
+      Produtos.hasMany(models.Carrinhos, {
+        foreignKey: 'produto_id',
+        onUpdate: 'CASCADE'
       })
     }
   }
@@ -30,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
         isAlpha: {msg: 'O campo nome só aceita letras!'},
         len: {
           args: [2, 40],
-          msg: 'O campo nome deve ter no mínimo 2 caracteres e no máximo 40'
+          msg: 'O campo nome deve ter entre 2 e 40 caracteres'
         }
       }
     },
@@ -44,15 +52,15 @@ module.exports = (sequelize, DataTypes) => {
         args: 1,
         msg: 'O campo preço deve ser no mínimo 1 real!'
       },
-      max: {
-        args: 1_000_000,
-        msg: 'O campo preço deve ser no máximo 1_000_000 reais!'
-      }}
+      }
     },
     quantidade_disponivel: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      notNull: {msg: 'O campo quantidade deve estar preenchido!'}
+      validate: {
+        notNull: {msg: 'O campo quantidade deve estar preenchido!'},
+        isNumeric: {msg: 'O campo quantidade deve ser preenchido apenas de números!'}
+      }
     },
   }, {
     paranoid: true,

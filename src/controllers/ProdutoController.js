@@ -1,8 +1,10 @@
 const ErroBase = require('../Erros/ErroBase');
 const ErroRequisicao = require('../Erros/ErroRequisicao');
-const database = require('../models');
+// const database = require('../models');
 const {ProdutoService} = require('../services');
 const produtoService = new ProdutoService();
+const { v4: uuidv4 } = require('uuid');
+
 
 
 class ProdutoController {
@@ -56,7 +58,7 @@ class ProdutoController {
   static async novoProduto(req, res, next) {
     try{
       const dadosNovoProduto = req.body;
-      const novoProduto = await produtoService.novoRegistro(dadosNovoProduto);
+      const novoProduto = await produtoService.novoRegistro({...dadosNovoProduto, id: uuidv4()});
       if(!novoProduto){
         new ErroBase().enviarResposta(res);
       }
@@ -94,7 +96,7 @@ class ProdutoController {
       const dadosAtualizados = req.body;
       const { id } = req.params;
       const resultado =  await produtoService.atualizaProduto(dadosAtualizados, id);
-      if(!resultado){
+      if(!resultado[0]){
         new ErroRequisicao('Id não encontrado').enviarResposta(res);
       }else{
         res.status(200).send({message: `Produto de id ${id} atualizado`});

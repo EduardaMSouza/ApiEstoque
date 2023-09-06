@@ -5,9 +5,9 @@ module.exports = {
     await queryInterface.createTable('Produtos', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        defaultValue: Sequelize.UUID,
+        type: Sequelize.UUID
       },
       nome: {
         type: Sequelize.STRING,
@@ -19,7 +19,7 @@ module.exports = {
         references: {model: 'Categorias', key: 'nome'}
       },
       preco: {
-        type: Sequelize.DOUBLE(10,2),
+        type: Sequelize.FLOAT,
         allowNull: false
       },
       quantidade_disponivel: {
