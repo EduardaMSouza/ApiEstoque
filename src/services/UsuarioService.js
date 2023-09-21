@@ -15,13 +15,18 @@ class UsuarioService extends Services {
       throw new ErroRequisicao('Email já cadastrado');
     }
     const senhaHash = await hash(dto.senha, 8)
-    console.log(senhaHash);
-    return await this.novoRegistro({
+    const novoUsuario = await this.novoRegistro({
       id: uuidv4(),
       nome: dto.nome,
       email: dto.email,
       senha: senhaHash
     });
+    await database.CarrinhoIds.create({
+      id: uuidv4(),
+      carrinho_id: uuidv4(),
+      usuario_id: novoUsuario.id,
+    })
+    return novoUsuario;
   }
 }
 

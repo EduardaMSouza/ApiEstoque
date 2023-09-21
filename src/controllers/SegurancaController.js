@@ -5,9 +5,10 @@ const segurancaService = new SegurancaService();
 class SegurancaController {
   static async cadastrarSeguranca (req, res, next) {
     try {
-      const { roles, permissoes} = req.body;
-      const { usuarioId } = req;
-      const novoUsuario = await segurancaService.cadastrarSeguranca({roles, permissoes, usuarioId});
+      const { roles, usuarioId} = req.body;
+      // const { usuarioId } = req;
+      console.log(usuarioId);
+      const novoUsuario = await segurancaService.cadastrarSeguranca({roles, usuarioId});
       res.status(201).json(novoUsuario);
     } catch (erro) {
       next(erro)

@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   StatusCarrinho.init({
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+
+    },
     nome: DataTypes.STRING
   }, {
     sequelize,

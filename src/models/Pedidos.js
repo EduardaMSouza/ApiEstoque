@@ -10,10 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Pedidos.belongsTo(models.Carrinhos, {
-        foreignKey: 'carrinho_id',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+      Pedidos.belongsTo(models.CarrinhoIds, {
+        foreignKey: 'id',
       })
       Pedidos.belongsTo(models.Usuarios, {
         foreignKey: 'usuario_id',
@@ -28,7 +26,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Pedidos.init({
-    status: DataTypes.BOOLEAN,
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+    },
+    carrinho_id: DataTypes.UUID,
+    usuario_id: DataTypes.UUID,
+    status_nome: DataTypes.BOOLEAN,
     total: DataTypes.FLOAT
   }, {
     sequelize,

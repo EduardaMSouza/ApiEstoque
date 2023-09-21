@@ -5,5 +5,7 @@ const router = Router();
 
 router
   .post('/auth/login', AuthController.login)
+  .post('/auth/refresh', AuthController.refresh)
+
 
 module.exports = router;

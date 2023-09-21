@@ -2,6 +2,21 @@ const express = require('express');
 const routes = require('./Routes');
 const manipuladorDeErros = require('./middlewares/manipuladorDeErros.js');
 const manipulador404 = require('./middlewares/manipulador404');
+const database = require('./models');
+const { v4: UUIDV4 } = require('uuid');
+
+
+async function syncDatabase() {
+  await database.sequelize.sync({ force: true});
+
+  await database.StatusCarrinho.create({
+    id: UUIDV4(),
+    nome: 'processando'
+  })
+
+}
+
+// syncDatabase();
 
 const app = express();
 const port = 3000;

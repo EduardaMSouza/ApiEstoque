@@ -7,18 +7,12 @@ class SegurancaService extends Services {
   constructor() {
     super();
   }
+
   async cadastrarSeguranca(dto) {
     const usuario = await database.Usuarios.findOne({
       include: [{
         model: database.Roles,
         as: 'usuario_roles',
-        attributes: ['id', 'nome', 'descricao'],
-        through: {
-          attributes: [],
-      }
-      },{
-        model: database.Permissoes,
-        as: 'usuario_permissoes',
         attributes: ['id', 'nome', 'descricao'],
         through: {
           attributes: [],
@@ -38,18 +32,12 @@ class SegurancaService extends Services {
         }
       }
     })
-    const PermissoesCadastradas = await database.Permissoes.findAll({
-      where: {
-        id: {
-          [Op.in]: dto.permissoes
-        }
-      }
-    })
+    
     await usuario.removeUsuario_roles(usuario.usuario_roles)
-    await usuario.removeUsuario_permissoes(usuario.usuario_permissoes)
+    // await usuario.removeUsuario_permissoes(usuario.usuario_permissoes)
 
     await usuario.addUsuario_roles(rolesCadastradas)
-    await usuario.addUsuario_permissoes(PermissoesCadastradas)
+    // await usuario.addUsuario_permissoes(PermissoesCadastradas)
 
     const novoUsuario = await database.Usuarios.findOne({
       include: [
@@ -61,18 +49,17 @@ class SegurancaService extends Services {
           attributes: [],
       }
       }
-    ,{
-        model: database.Permissoes,
-        as: 'usuario_permissoes',
-        attributes: ['id', 'nome', 'descricao'],
-        through: {
-          attributes: [],
+    ],
+      where: {
+        id: dto.usuarioId
       }
-      }]
-    })
+  })
     console.log(novoUsuario)
     return novoUsuario;
   }
+
+
+
   async cadastarPermissoesRoles(dto) {
     const role = await database.Roles.findOne({
       include: [{

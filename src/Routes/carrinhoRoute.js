@@ -1,15 +1,16 @@
-// const { Router } = require('express');
-// const RoleController = require('../controllers/RoleController');
+const { Router } = require('express');
+const CarrinhoController = require('../controllers/CarrinhoController');
 
 
-// const router = Router();
+const router = Router();
 
-// router
-//   .get('/carrinho', )
-//   .get('/carrinho/:id', RoleController.pegaRolePorId)
-//   .post('/carrinho', RoleController.cadastrarRole)
-//   .delete('/carrinho/:id', RoleController.deletaRole)
-//   .put('/carrinho/:id', RoleController.atualizaRole)
+router
+  .get('/carrinho', CarrinhoController.obterProdutos)
+  .post('/carrinho/', CarrinhoController.adicionaProduto)
+  .post('/carrinho/finalizar', CarrinhoController.finalizarCompra)
+  .delete('/carrinho/:produto_id', CarrinhoController.removerProdutos)
+  
+  
 
 
-// module.exports = router;
+module.exports = router;

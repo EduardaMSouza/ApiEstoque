@@ -31,9 +31,26 @@ module.exports = (sequelize, DataTypes) => {
         as: 'usuario_permissoes',
         foreignKey: 'usuario_id'
       })
+      Usuarios.belongsTo(models.RefreshTokens, {
+        foreignKey: 'usuario_id'
+      })
+      Usuarios.hasOne(models.Roles, {
+        foreignKey: 'usuario_id'
+      })
+      Usuarios.hasMany(models.CarrinhoIds, {
+        foreignKey: 'usuario_id',
+        onDelete: 'CASCADE',
+        onUpdate:  'CASCADE'
+      })
     }
   }
   Usuarios.init({
+    id: {
+      primaryKey: true,
+      type: DataTypes.UUID,
+      unique: true,
+      allowNull: false
+    },
     nome: {
       type: DataTypes.STRING,
       allowNull: false,

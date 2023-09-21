@@ -11,22 +11,25 @@ const pedidos = require('./pedidosRoute');
 const statusCarrinho = require('./statusCarrinhoRoute');
 const permissoes = require('./permissaoRoute');
 const seguranca = require('./segurancaRoute')
-// const carrinho = require('./carrinhoRoute')
+const autenticado = require('../middlewares/autenticado');
+const carrinho = require('./carrinhoRoute')
 
-
+//
 
 module.exports = app => {
   app.use(bodyParser.json(),
   auth,
+  autenticado,
   roles,
   produtos,
   categorias,
   historicoPrecos,
   historicoQuantidades,
-  usuarios,
   pedidos,
   statusCarrinho,
   permissoes,
-  seguranca
+  usuarios,
+  seguranca,
+  carrinho
   )
 };

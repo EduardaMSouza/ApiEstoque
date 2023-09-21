@@ -28,6 +28,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Carrinhos.init({
+    usuario_id: DataTypes.UUID,
+    produto_id: DataTypes.UUID,
     carrinho_id: DataTypes.UUID,
     quantidade: DataTypes.INTEGER,
     total: DataTypes.FLOAT

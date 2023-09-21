@@ -5,11 +5,11 @@ module.exports = {
     await queryInterface.createTable('UsuariosRoles', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
       usuario_id: {
+        allowNull: false,
         type: Sequelize.UUID,
         references: {
           model: 'Usuarios',
