@@ -81,24 +81,29 @@ class CarrinhoService extends Services{
         status_nome: 'processando',
         total: total
       })
-      await carrinho.forEach(async (item) => {
-        const pedido = await database.PedidosFeitos.create({
+      for (const item of carrinho) {
+        const pedidoFeito = await database.PedidosFeitos.create({
           id: uuidv4(),
           carrinho_id: dto.carrinhoId,
           produto_id: item.dataValues.produto_id,
           quantidade: item.dataValues.quantidade,
           total: item.dataValues.total
-        })
-        console.log(pedido)
-      })
+        });
+      }
+      
       console.log('kkkkkkkkkkkkk')
-      await database.CarrinhoIds.destroy({where: {usuario_id: dto.usuarioId}});
       await database.Carrinhos.destroy({where: {usuario_id: dto.usuarioId}});
-      await database.CarrinhoIds.create({
+      console.log('kkkkkkkkkkkkk')
+
+      await database.CarrinhoIds.destroy({where: {usuario_id: dto.usuarioId}});
+      console.log('kkkkkkkkkkkkk')
+      const carrinhoNovo = await database.CarrinhoIds.create({
         id: uuidv4(),
         usuario_id: dto.usuarioId,
       })
-      return pedido;
+      console.log('kkkkkkkkkkkkk')
+      const carrinhoCriado = carrinhoNovo.dataValues.id;
+      return {pedido, carrinhoCriado};
     }
 }
 

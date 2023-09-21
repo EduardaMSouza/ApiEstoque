@@ -23,10 +23,6 @@ module.exports = {
       carrinho_id: {
         type: Sequelize.UUID,
         allowNull: false,
-        references: {
-          model: 'CarrinhoIds',
-          key: 'id'
-        }
       },
       usuario_id: {
         type: Sequelize.UUID,

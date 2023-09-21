@@ -38,7 +38,9 @@ class CarrinhoController {
     try {
       const { carrinhoId, usuarioId } = req;
       const carrinho = await carrinhoService.finalizarCompra({carrinhoId, usuarioId});
-      res.status(200).json({carrinho: carrinho});
+      req.carrinhoId = carrinho.carrinhoCriado;
+      console.log(req.carrinhoId)
+      res.status(200).json({carrinho: carrinho.pedido});
     } catch (error) {
       next(error);
     }
