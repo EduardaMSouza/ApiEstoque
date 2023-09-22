@@ -33,9 +33,9 @@ class AuthService extends UsuarioService{
     if(!senhasIguais) {
       return new ErroRequisicao('Usuario ou senha incorretos');
     }
-    // if(!usuario.verificacaoEmail) {
-    //   return new ErroRequisicao('Email não verificado');
-    // }
+    if(!usuario.verificacaoEmail) {
+      return new ErroRequisicao('Email não verificado');
+    }
     const accessToken = sign({
       id: usuario.id,
       email: usuario.email
@@ -119,6 +119,55 @@ class AuthService extends UsuarioService{
     expiresIn: '5d'
   });
   return { accessToken };
+}
+
+async verificacaoEmail(dto) {
+  try{
+    
+    const usuarioCadastrado = await database.Usuarios.findOne({
+      attributes: ['id', 'email'],
+      where: {
+        email: dto.email
+      }
+    })
+    if(!usuarioCadastrado) {
+      return new ErroRequisicao('Usuario invalido');
+    }
+    const verificacaoEmail = await database.VerificacaoEmails.findOne({
+      where: {
+        codigoVerificacao: dto.codigo,
+        usuario_id: usuarioCadastrado.dataValues.id
+      }
+    })
+    console.log("eusoueeee",verificacaoEmail === null)
+    if(!verificacaoEmail || verificacaoEmail === null) {
+      return null;
+    }
+    console.log("eusoueeee", verificacaoEmail.expiresIn < moment().unix())
+    if(verificacaoEmail.expiresIn < moment().unix()) {
+      await database.VerificacaoEmails.destroy({
+        where: {
+          codigoVerificacao: dto.codigo,
+          usuario_id: usuarioCadastrado.dataValues.id
+        }
+      })
+      return null;
+    }
+    
+    await database.Usuarios.update(
+      { verificacaoEmail: true },
+      { where: { id: usuarioCadastrado.dataValues.id } }
+    )
+    await database.VerificacaoEmails.destroy({
+      where: {
+        codigoVerificacao: dto.codigo,
+        usuario_id: usuarioCadastrado.dataValues.id
+      }
+    })
+    return true;
+  }catch(erro) {
+    throw ErroRequisicao('Codigo invalido'); 
+  }
 }
 }
 

@@ -32,6 +32,20 @@ class AuthController {
       next(erro);
     }
   }
+  static async verificacaoEmail(req, res, next) {
+    try{
+      const { codigo, email } = req.body;
+      const verificacao = await authService.verificacaoEmail({codigo, email});
+      if(verificacao){
+        res.status(200).send({msg: 'Email verificado'});
+      }else{
+        res.status(401).send({msg: 'Informacoes incorretas ou expiradas'});
+      }
+    }catch(erro) {
+      next(erro);
+    }
+  }
+
 }
 
 

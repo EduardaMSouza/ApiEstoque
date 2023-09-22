@@ -15,6 +15,7 @@ module.exports = async (usuario) => {
   secure: false,
   auth: contaTeste
 });
+  console.log(usuario[0].dataValues.email)
   const info = await transporter.sendMail({
     from: '"Loja Teste" <teste@example.com>',
     to: usuario[0].dataValues.email,
@@ -32,7 +33,7 @@ module.exports = async (usuario) => {
     id: uuidv4(),
     usuario_id: usuario[0].dataValues.id,
     codigoVerificacao: codigo,
-    expiresIn: moment().add(250, 's').unix(),
+    expiresIn: moment().add(1, 's').unix(),
   });
   console.log('kkkkkkkkkkkkk')
   console.log('URL:', nodeMailer.getTestMessageUrl(info));

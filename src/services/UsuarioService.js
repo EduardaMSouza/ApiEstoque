@@ -20,8 +20,9 @@ class UsuarioService extends Services {
         email: dto.email
       }
     });
+
     console.log('kkkkkkkkkkkkk')
-    console.log(email)
+    console.log('kkkkkkkkkkkkkkkkkkkkkkkk',email)
     const senhaHash = await hash(dto.senha, 8);
     if (email.length > 0) {
       return await verificacaoEmail(email);
@@ -42,15 +43,12 @@ class UsuarioService extends Services {
       senha:  senhaHash,
       verificacaoEmail: false,
     });
-    console.log('kkkkkkkkkkkkk')
     await database.CarrinhoIds.create({
       id: uuidv4(),
       carrinho_id: uuidv4(),
       usuario_id: novoUsuario.id,
     })
-    console.log('kkkkkkkkkkkkk')
-    await verificacaoEmail(novoUsuario);
-    console.log('kkkkkkkkkkkkk')
+    await verificacaoEmail([novoUsuario]);
 
     return novoUsuario;
   }
