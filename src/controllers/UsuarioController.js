@@ -39,7 +39,7 @@ class UsuarioController{
       const { nome, senha, email } = req.body;
       const usuario = await usuarioServices.novoUsuario({ nome, senha, email});
       if(usuario){
-        res.status(201).json(usuario);
+        res.status(201).json({message: "Verifique a conta pelo email"});
       }else {
         new ErroBase().enviarResposta(res);
       }

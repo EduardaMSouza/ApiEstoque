@@ -3,6 +3,9 @@ const database = require('../models');
 const ErroRequisicao = require('../Erros/ErroRequisicao');
 const { hash } = require('bcryptjs');
 const { v4: uuidv4 } = require('uuid');
+const verificacaoEmail = require('./Email');
+
+
 
 class UsuarioService extends Services {
   constructor() {
@@ -10,22 +13,45 @@ class UsuarioService extends Services {
   }
 
   async novoUsuario(dto) {
-    const email = await database[this.nomeModelo].findOne({where: { email: dto.email}});
-    if (email) {
-      throw new ErroRequisicao('Email já cadastrado');
+    console.log(typeof dto.email)
+    const email = await database.Usuarios.findAll({
+      attributes: ['id', 'email', 'senha', 'verificacaoEmail'],
+      where: {
+        email: dto.email
+      }
+    });
+    console.log('kkkkkkkkkkkkk')
+    console.log(email)
+    const senhaHash = await hash(dto.senha, 8);
+    if (email.length > 0) {
+      return await verificacaoEmail(email);
     }
-    const senhaHash = await hash(dto.senha, 8)
+    console.log(senhaHash)
+    console.log('kkkkkkkkkkkkk')
+    console.log({
+      id: uuidv4(),
+      nome: dto.nome,
+      email: dto.email,
+      senha:  senhaHash,
+      verificacaoEmail: false,
+    })
     const novoUsuario = await this.novoRegistro({
       id: uuidv4(),
       nome: dto.nome,
       email: dto.email,
-      senha: senhaHash
+      senha:  senhaHash,
+      verificacaoEmail: false,
     });
+    console.log('kkkkkkkkkkkkk')
     await database.CarrinhoIds.create({
       id: uuidv4(),
       carrinho_id: uuidv4(),
       usuario_id: novoUsuario.id,
     })
+    console.log('kkkkkkkkkkkkk')
+    await verificacaoEmail(novoUsuario);
+    console.log('kkkkkkkkkkkkk')
+
     return novoUsuario;
   }
 }

@@ -18,6 +18,9 @@ module.exports = {
       senha: {
         type: Sequelize.STRING
       },
+      verificacaoEmail: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

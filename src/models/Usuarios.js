@@ -26,18 +26,23 @@ module.exports = (sequelize, DataTypes) => {
         as: 'usuario_roles',
         foreignKey: 'usuario_id'
       })
-      Usuarios.belongsToMany(models.Permissoes, {
-        through: models.UsuariosPermissoes,
-        as: 'usuario_permissoes',
-        foreignKey: 'usuario_id'
-      })
-      Usuarios.belongsTo(models.RefreshTokens, {
+      // Usuarios.belongsToMany(models.Permissoes, {
+      //   through: models.UsuariosPermissoes,
+      //   as: 'usuario_permissoes',
+      //   foreignKey: 'usuario_id'
+      // })
+      Usuarios.hasMany(models.RefreshTokens, {
         foreignKey: 'usuario_id'
       })
       Usuarios.hasOne(models.Roles, {
         foreignKey: 'usuario_id'
       })
       Usuarios.hasMany(models.CarrinhoIds, {
+        foreignKey: 'usuario_id',
+        onDelete: 'CASCADE',
+        onUpdate:  'CASCADE'
+      })
+      Usuarios.hasMany(models.VerificacaoEmails, {
         foreignKey: 'usuario_id',
         onDelete: 'CASCADE',
         onUpdate:  'CASCADE'
@@ -92,6 +97,10 @@ module.exports = (sequelize, DataTypes) => {
         // }
       }
     },
+    verificacaoEmail: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    }
   }, {
     sequelize,
     modelName: 'Usuarios',

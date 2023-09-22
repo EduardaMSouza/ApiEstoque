@@ -18,7 +18,7 @@ class AuthService extends UsuarioService{
   }
   async login(dto) {
     const usuario = await database[this.nomeModelo].findOne({
-      attributes: ['id', 'email', 'senha'],
+      attributes: ['id', 'email', 'senha', 'verificacaoEmail'],
       where: {
         email: dto.email
       }
@@ -33,7 +33,9 @@ class AuthService extends UsuarioService{
     if(!senhasIguais) {
       return new ErroRequisicao('Usuario ou senha incorretos');
     }
-
+    // if(!usuario.verificacaoEmail) {
+    //   return new ErroRequisicao('Email não verificado');
+    // }
     const accessToken = sign({
       id: usuario.id,
       email: usuario.email
